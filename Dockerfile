@@ -16,11 +16,13 @@ RUN apt-get update && \
 RUN mkdir /code
 WORKDIR /code
 COPY . /code
+COPY docker-entrypoint.sh docker-entrypoint.sh
 RUN chmod +x docker-entrypoint.sh
+RUN apt-get install libfontconfig
 
-ADD requirements.txt requirements.txt
-RUN pip install -r requirements.txt
-COPY docker-entrypoint.sh /usr/local/bin/
+ADD requirements.txt /tmp/requirements.txt
+RUN pip install --upgrade pip
+RUN pip install -r /tmp/requirements.txt
 
 EXPOSE 6666
 CMD /code/docker-entrypoint.sh
