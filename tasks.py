@@ -1,10 +1,10 @@
+from App import app
 from celery import Celery
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 
-from App import app
 from config import Config
-from show import browser, wait
+from show_image.show import browser, wait
 
 
 def make_celery(app):

@@ -1,13 +1,6 @@
 # -*- coding:utf-8 -*-
 import time
-from flask import Flask, jsonify
-from flask import render_template
 from flask import request
-from config import Config
-
-app = Flask(__name__)
-# 配置
-app.config.from_object(Config)
 
 from splinter import Browser
 from selenium.webdriver.common.by import By
@@ -19,7 +12,7 @@ browser.driver.maximize_window()
 
 wait = WebDriverWait(browser.driver, 60)
 
-
+from show_image import app
 @app.route('/showimg', methods=['GET', 'POST'])
 def showimg():
     # 获取到图片url
@@ -38,7 +31,7 @@ def showimg():
     # status = _toShow.delay(img_path)
     status = _toShow(img_path)
 
-    return 'ok',status
+    return status
 
 
 def _toShow(img_path):
@@ -57,10 +50,7 @@ def _toShow(img_path):
             time.sleep(0.5)
             continue
 
-    status = {
-        'msg':msg,
-        'code':code
-    }
+    status = (msg,code)
 
     return status
 
